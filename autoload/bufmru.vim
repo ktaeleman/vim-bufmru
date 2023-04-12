@@ -64,8 +64,10 @@ function! BufMRUList()
 	let res = []
 	call sort(bufs, "bufmru#sort")
 	for nr in bufs
-		if buflisted(nr)
-			call add(res, nr)
+		if getbufvar(nr, '&buftype', 'ERROR') !=# 'terminal'
+			if buflisted(nr)
+				call add(res, nr)
+			endif
 		endif
 	endfor
 	return res
